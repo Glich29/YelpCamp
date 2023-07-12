@@ -21,10 +21,14 @@ app.get('/', (req, resp) => {
     resp.render('home');
 });
 
-app.get('/campground/add', async (req, resp) => {
-    const camp = new Campground({title: 'My Backyard', description: 'cheap camping! '});
-    await camp.save();
-    resp.send(camp);
+app.get('/campgrounds', async (req, resp) => {
+    const campgrounds =  await Campground.find({});
+    resp.render('campgrounds/index', { campgrounds });
+});
+
+app.get('/campground/:id', async (req, resp) => {
+    const campground = await Campground.findById(req.params.id);
+    resp.render('campgrounds/show', { campground });
 });
 
 app.listen(3000, () => {
