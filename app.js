@@ -22,7 +22,7 @@ app.get('/', (req, resp) => {
 });
 
 app.get('/campground/add', async (req, resp) => {
-    const camp = new Campground({title: 'My Backyard', description: 'cheap camping!'});
+    const camp = new Campground({title: 'My Backyard', description: 'cheap camping! '});
     await camp.save();
     resp.send(camp);
 });
