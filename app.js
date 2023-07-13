@@ -17,6 +17,8 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.urlencoded({extended: true}));
+
 app.get('/', (req, resp) => {
     resp.render('home');
 });
@@ -26,10 +28,22 @@ app.get('/campgrounds', async (req, resp) => {
     resp.render('campgrounds/index', { campgrounds });
 });
 
+app.get('/campgrounds/new', (req, resp) => {
+    resp.render('campgrounds/new');
+});
+
+app.post('/campgrounds/', async (req, resp) => {
+    const campground = new Campground(req.body.campground); 
+    await campground.save();
+    resp.redirect(`/campground/${campground._id}`);  
+
+});
+
 app.get('/campground/:id', async (req, resp) => {
     const campground = await Campground.findById(req.params.id);
     resp.render('campgrounds/show', { campground });
 });
+
 
 app.listen(3000, () => {
     console.log('Serving on port: 3000');
