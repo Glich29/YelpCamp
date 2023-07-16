@@ -1,6 +1,8 @@
 <% layout('layouts/boilerplate') %>
     <h1>Campground: <%=campground.title%></h1>
     <h2>Location: <%=campground.location%></h2>
+    <img src="<%=campground.image%>" alt="src">
+    <p><%=campground.description%></p>
     <p>
         <a href="/campground/<%=campground._id%>/edit">Edit</a>
     </p>
